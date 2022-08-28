@@ -321,6 +321,14 @@ const simple_icons = [
 const ONE_ICON = 48
 const SCALE = ONE_ICON / (300 - 44)
 
+function pickTextColorBasedOnBgColorSimple(bgColor, lightColor = "white", darkColor = "black") {
+	var color = bgColor.charAt(0) === "#" ? bgColor.substring(1, 7) : bgColor
+	var r = parseInt(color.substring(0, 2), 16) // hexToR
+	var g = parseInt(color.substring(2, 4), 16) // hexToG
+	var b = parseInt(color.substring(4, 6), 16) // hexToB
+	return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? darkColor : lightColor
+}
+
 /**
  * @param {import("simple-icons/icons").I[]} icons
  * @param {number} perLine
@@ -340,7 +348,7 @@ function generateSvg(icons, perLine) {
 						Math.floor((index - 1) / perLine) * 300
 					}) scale(10)" style="--bg:#${icon.hex};width:max-content">
 					<rect width="24" height="24" rx="5"/>
-					<path fill="white" d="${
+					<path fill="${pickTextColorBasedOnBgColorSimple(icon.hex)}" d="${
 						icon.path
 					}" transform="scale(0.8)" style="transform-box:fill-box;transform-origin:center" />
 					</g>`
