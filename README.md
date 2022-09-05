@@ -1,6 +1,6 @@
 # moller icons
 
-Use Simple Icons in your READMEs.
+Embed lists of icons in Markdown.
 
 ## Usage
 
